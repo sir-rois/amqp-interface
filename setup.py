@@ -9,7 +9,7 @@ class BuildPyCommand(build_py.build_py):
 
 setup_kwargs = dict(
     name='rmq_interface',
-    version='1.2',
+    version='1.3.0',
     packages=find_packages(),
     install_requires=['pika==1.0.1'],
     setup_requires=[],

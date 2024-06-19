@@ -13,7 +13,7 @@ def consumer_function(function):
         properties = header
         result = function(body, properties)
         channel.basic_ack(delivery_tag=method.delivery_tag)
-        if result is not None:
+        if result is not None and properties.reply_to:
             reply_to = properties.reply_to
             channel.basic_publish(exchange='', routing_key=reply_to, body=result)
 
@@ -29,7 +29,7 @@ def class_consumer(function):
         properties = header
         result = function(self, body, properties)
         channel.basic_ack(delivery_tag=method.delivery_tag)
-        if result is not None:
+        if result is not None and properties.reply_to:
             reply_to = properties.reply_to
             channel.basic_publish(exchange='', routing_key=reply_to, body=result)
 
