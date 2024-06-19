@@ -2,9 +2,10 @@
 
 The high-level wrapper to the `pika` library, making interaction with `RabbitMQ` easy and efficient. The library presents a Publish-Fetch-Listen interface, which is a common standard for message queue-based software applications. 
 
-**Author and Developer:**
+**Authors and Developers:**
 
 - Maksim Eremeev (me@maksimeremeev.com)
+- Roman Ischenko (rois@rois.dev)
 
 ## Requirements
 

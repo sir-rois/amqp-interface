@@ -1,8 +1,3 @@
-#
-# Created by maks5507 (me@maksimeremeev.com)
-#
-
-
 import pika
 import pika.spec
 import traceback
@@ -21,6 +16,7 @@ def consumer_function(function):
         if result is not None:
             reply_to = properties.reply_to
             channel.basic_publish(exchange='', routing_key=reply_to, body=result)
+
     return process
 
 
@@ -36,6 +32,7 @@ def class_consumer(function):
         if result is not None:
             reply_to = properties.reply_to
             channel.basic_publish(exchange='', routing_key=reply_to, body=result)
+
     return process
 
 
@@ -52,7 +49,6 @@ def noexcept(function):
 
 
 class RabbitMQInterface:
-
     def __init__(self, user=None, password=None, host='localhost', port=5672, url_parameters=None):
         """
         :param user: username for RabbitMQ
@@ -74,8 +70,9 @@ class RabbitMQInterface:
         """
         Connects to RabbitMQ, using the credentials specified in init.
         """
-        self.connection, self.channel = self.__connect(self.user, self.password, self.host, self.port,
-                                                       self.url_parameters)
+        self.connection, self.channel = self.__connect(
+            self.user, self.password, self.host, self.port, self.url_parameters
+        )
 
     @staticmethod
     def __connect(user, passw, host, port, url_parameters):
@@ -109,7 +106,9 @@ class RabbitMQInterface:
         :param exchange: (Optional) Exchange to publish message. Default - 'amq.topic'
         :param reply_to: (Optional) Queue to response name
         """
-        properties = pika.spec.BasicProperties(reply_to=reply_to)
+        properties = None
+        if reply_to:
+            properties = pika.spec.BasicProperties(reply_to=reply_to)
         self.channel.basic_publish(exchange=exchange, routing_key=routing_key, body=body, properties=properties)
 
     @noexcept
